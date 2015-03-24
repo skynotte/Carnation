@@ -4,13 +4,13 @@
 <html lang="en">
 
 
-<!--
+<!----
 
 ##############################################################
 
     CARNATION THEME
-    Version: 1.1.0
-    Updated: March 22, 2015
+    Version: 1.1.1
+    Updated: March 24, 2015
 
     Designed By: Notte Themes  
     Link to: http://notte-themes.tumblr.com
@@ -19,7 +19,7 @@
     
 ##############################################################
  
-
+ 
 -->
 <head>
 
@@ -41,7 +41,7 @@
 <!-- Magnific Popup core CSS file -->
  <link rel="stylesheet" type="text/css" href="http://static.tumblr.com/wk1x3im/u1Znhax6n/magnific-popup.css">
  
-<!-- DEFAULT VARIABLES -->
+<!-- ------ DEFAULT VARIABLES ------ -->
 <meta name="select:Post Size" content="250" title="250"> 
 <meta name="select:Post Size" content="400" title="400">
 <meta name="select:Post Size" content="500" title="500">
@@ -457,13 +457,12 @@ nav a:hover{
 /* -------------- VIEW FOR PHONES --------------- */
  
  @media only screen and (max-width: 768px){
-     form{display:none !important;}
      #img-desc{height:auto;}
-     #descrip{width:90%; padding:30px 5%; height:auto;}
-     #header-image{width:100%; max-height:300px;}
+
+     #descrip{width:90%; padding:30px 5%;}
+     #header-image{width:100%;}
+     #header-title{height:auto; width:90%; padding-left:5%; padding-right:5%;}
      nav{width:90%; padding:30px 5%; text-align:center; height:auto;}
-     header{background-size:100% 450px;}
-     #header-title{width:90%; padding:10px 5%; height:auto;}
      body { font-size:.75em; width:100%; }
      .post { margin:10px auto; width:100%; overflow:hidden; }
      img { max-width:100%; }
@@ -476,7 +475,7 @@ nav a:hover{
  
 </head>
 
-<body>
+<body> 
  
 <header>
     <section style="display:inline-block;">
@@ -504,7 +503,6 @@ nav a:hover{
 </header>
 
 <div id="wrapper">
-<section id="background-color">
 <div class="loading"></div>
 <div id="cent">
  
@@ -716,7 +714,6 @@ nav a:hover{
 
 </div><!-- END CENT -->
 </div><!-- END WRAPPER -->
-</section>
 {block:IndexPage}
 <div class="pagination">
     <div style="float:left; font-size:15px;"><a href="http://notte-themes.tumblr.com" id="cr"><span class="fa fa-cloud fa-fw"></span></a></div>
@@ -740,24 +737,34 @@ nav a:hover{
 <script type="text/javascript">
 // hide pagination and centered content to avoid it awkwardly
 // displaying while posts are loading
+var $content = $('#cent');
 $('.pagination').hide();
 $('.loading').show();
 $('#cent').hide();
 $(window).load(function () {
-var $content = $('#cent');
-$content.imagesLoaded( function(){
-    $content.fadeTo('slow', 1);
-    $content.masonry({
-        itemSelector: ".post",
-        isFitWidth: true,
-        gutter: 25,
-        isAnimated:true,
-    });
-    $('.loading').hide();
-    {block:ifNotInfiniteScrolling}
-    $('.pagination').show();
-    {/block:ifNotInfiniteScrolling}
+    $content.imagesLoaded( function(){
+        $content.fadeTo('slow', 1);
+        $content.masonry({
+            itemSelector: ".post",
+            isFitWidth: true,
+            gutter: 25,
+            isAnimated:true,
+            isResizable: true
+        });
+        $('.loading').hide();
+        {block:ifNotInfiniteScrolling}
+        $('.pagination').show();
+        {/block:ifNotInfiniteScrolling}
 });
+
+// ONLY TEMPORARY
+// fix for resize issue
+// and rotation on tablets and smart phones
+$(window).bind('resize', function() { 
+    if ($(window).width() < 769){
+        location.reload(); 
+    }
+}); 
 
 $content.infinitescroll({
     {block:ifInfiniteScrolling}
@@ -801,6 +808,7 @@ $content.infinitescroll({
 {/block:IndexPage}
 
 <script type="text/javascript">
+// properly adjust photosets
 $.each($('.photoset-grid'), function() { 
     $(this).photosetGrid({
         highresLinks: true,
@@ -817,9 +825,13 @@ $.each($('.photoset-grid'), function() {
         }
     });
 });
+
 </script>
   
-
+    
+    <!-- DO NOT REMOVE THIS UNLESS YOU
+    PLAN ON PUTTING IT SOMEWHERE
+    ELSE-->
 {block:ifInfiniteScrolling}
 <div style="position:fixed; left:5px; font-size:15px; bottom:5px;"><a href="http://notte-themes.tumblr.com" id="cr"><span class="fa fa-cloud fa-fw"></span></a></div>
 {/block:ifInfiniteScrolling}
