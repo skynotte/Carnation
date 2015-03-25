@@ -742,20 +742,20 @@ $('.pagination').hide();
 $('.loading').show();
 $('#cent').hide();
 $(window).load(function () {
+    $content.fadeTo('slow', 1);
     $content.imagesLoaded( function(){
         $content.masonry({
             itemSelector: ".post",
             isFitWidth: true,
             gutter: 25,
             isAnimated:true,
-            isResizable: true
         });
         $('.loading').hide();
         {block:ifNotInfiniteScrolling}
         $('.pagination').show();
         {/block:ifNotInfiniteScrolling}
-        $content.fadeTo('slow', 1);
 });
+
 
 // ONLY TEMPORARY
 // fix for resize issue
