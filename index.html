@@ -4,12 +4,12 @@
 <html lang="en">
 
 
-<!----
+<!--
 
 ##############################################################
 
     CARNATION THEME
-    Version: 1.1.1
+    Version: 1.1.2
     Updated: March 24, 2015
 
     Designed By: Notte Themes  
@@ -41,7 +41,7 @@
 <!-- Magnific Popup core CSS file -->
  <link rel="stylesheet" type="text/css" href="http://static.tumblr.com/wk1x3im/u1Znhax6n/magnific-popup.css">
  
-<!-- ------ DEFAULT VARIABLES ------ -->
+<!--  DEFAULT VARIABLES  -->
 <meta name="select:Post Size" content="250" title="250"> 
 <meta name="select:Post Size" content="400" title="400">
 <meta name="select:Post Size" content="500" title="500">
@@ -104,7 +104,7 @@ iframe, object, embed{
  
 img {display:block;}
 *{margin:0;}
-p{margin:8px;}
+p{margin:8px; word-wrap: break-word;}
  
 body{
     color:{color:Text};
@@ -151,7 +151,7 @@ pre{
     white-space: -moz-pre-wrap; /* Mozilla, since 1999 */
     white-space: -pre-wrap; /* Opera 4-6 */
     white-space: -o-pre-wrap; /* Opera 7 */
-    word-wrap: break-word; /* Internet Explorer 5.5+ */
+    overflow-wrap: break-word; /* Internet Explorer 5.5+ */
 }
  
 .body-text{padding:15px;}
@@ -250,10 +250,10 @@ ol.notes li.note img.avatar {
 /* -------------- POSTS --------------- */
  
 .post{
-    clear: both;
+    word-wrap: break-word; /* Internet Explorer 5.5+ */
+    overflow:hidden;
     {block:IndexPage}
         margin:0px auto 30px auto;
-        overflow:hidden;
         width:{select:Post Size}px;
         float:left;
     {/block:IndexPage}
@@ -326,7 +326,7 @@ header{
     float:left;
     text-align:center;
     height:40px;
-    background-color:{color:Main Links};
+    background-color:{color:Title Background};
     color:{color:Title};
     letter-spacing:2px;
     padding:12px 11px 8px 11px;
@@ -343,6 +343,7 @@ header{
 
 #img-desc{
     display:inline-block; 
+    min-height:250px; 
     {block:ShowHeaderImage}
     height:250px; 
     {/block:ShowHeaderImage}
@@ -458,7 +459,6 @@ nav a:hover{
  
  @media only screen and (max-width: 768px){
      #img-desc{height:auto;}
-
      #descrip{width:90%; padding:30px 5%;}
      #header-image{width:100%;}
      #header-title{height:auto; width:90%; padding-left:5%; padding-right:5%;}
@@ -743,7 +743,6 @@ $('.loading').show();
 $('#cent').hide();
 $(window).load(function () {
     $content.imagesLoaded( function(){
-        $content.fadeTo('slow', 1);
         $content.masonry({
             itemSelector: ".post",
             isFitWidth: true,
@@ -755,6 +754,7 @@ $(window).load(function () {
         {block:ifNotInfiniteScrolling}
         $('.pagination').show();
         {/block:ifNotInfiniteScrolling}
+        $content.fadeTo('slow', 1);
 });
 
 // ONLY TEMPORARY
@@ -774,7 +774,7 @@ $content.infinitescroll({
     itemSelector: ".post",
     debug: true,
     bufferPx: 600,
-    extraScrollPx: 600,
+    extraScrollPx: 200,
     loading: {
         finishedMsg: '{lang:No more posts}',
     img: 'http://static.tumblr.com/qzzd7wg/Lh3nh8mit/ajax-loader_1_.gif',
@@ -797,6 +797,7 @@ $content.infinitescroll({
             true,
             function(){$newElems.fadeTo('slow', 1);}
         );
+        
         
         $newElems.imagesLoaded(function(){
             $content.masonry('layout');
